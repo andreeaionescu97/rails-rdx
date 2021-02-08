@@ -1,1 +1,119 @@
-// Specific CSS for your home-page
+body {
+  background-color: black;
+  position: relative;
+  font-family: 'Varela', sans-serif;
+}
+
+
+$number-of-spans: 20;
+$dimension: 400px;
+$item-dimension: $dimension / 2;
+
+.master-of-all-divs {
+  width: $dimension; height: $dimension;
+  display: block;
+  margin: 140px auto;
+  transform: rotate(45deg);
+}
+
+@for $i from 1 through $number-of-spans {
+  @for $x from 1 through 4 {
+    .d#{$x} {
+      position: absolute;
+      width: 200px; height: 200px;
+      & > .s#{$i} {
+        position: absolute;
+        animation: animation cubic-bezier(0.770, 0.000, 0.175, 1.000) 6s infinite;
+        border: 1px solid white;
+        width: $i*10px;
+        height: $i*10px;
+
+      }
+    }
+  }
+}
+
+.d2 , .d4{
+  left: $item-dimension;
+}
+.d4 , .d3 {
+  top: $item-dimension;
+}
+.d3 {
+    transform: rotate(90deg) ;
+}
+.d2 {
+  transform: rotate(270deg) ;
+}
+.d1 {
+  transform: rotate(180deg) ;
+}
+
+@keyframes animation {
+  0%{
+    transform: translate(0px);
+  }
+  33%{
+    transform: translate(100px) skewX(-20deg);
+  }
+  64%{
+    transform: rotate(45deg);
+  }
+  96%{
+    width: $item-dimension;
+  }
+}
+
+.overlay-text-homepage {
+  color: white;
+}
+
+.glitch{
+  color:white;
+  font-size:100px;
+  position:relative;
+  width:400px;
+  margin: 100px 200px;
+}
+@keyframes noise-anim{
+  $steps:20;
+  @for $i from 0 through $steps{
+    #{percentage($i*(1/$steps))}{
+      clip:rect(random(100)+px,9999px,random(100)+px,0);
+    }
+  }
+}
+.glitch:after{
+  content:attr(data-text);
+  position:absolute;
+  left:2px;
+  text-shadow:-1px 0 red;
+  top:0;
+  color:white;
+  background:black;
+  overflow:hidden;
+  clip:rect(0,900px,0,0);
+  animation:noise-anim 2s infinite linear alternate-reverse;
+}
+
+@keyframes noise-anim-2{
+  $steps:20;
+  @for $i from 0 through $steps{
+    #{percentage($i*(1/$steps))}{
+      clip:rect(random(100)+px,9999px,random(100)+px,0);
+    }
+  }
+}
+.glitch:before{
+  content:attr(data-text);
+  position:absolute;
+  left:-2px;
+  text-shadow:1px 0 blue;
+  top:0;
+  color:white;
+  background:black;
+  overflow:hidden;
+  clip:rect(0,900px,0,0);
+  animation:noise-anim-2 3s infinite linear alternate-reverse;
+}
+
